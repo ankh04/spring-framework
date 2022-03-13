@@ -16,14 +16,14 @@
 
 package org.springframework.context.support;
 
-import java.io.IOException;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.lang.Nullable;
+
+import java.io.IOException;
 
 /**
  * Base class for {@link org.springframework.context.ApplicationContext}
@@ -119,14 +119,21 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 */
 	@Override
 	protected final void refreshBeanFactory() throws BeansException {
+		// 如果创建前已经有beanFactory了,删除并销毁它,再创建新的(即刷新refresh)
 		if (hasBeanFactory()) {
 			destroyBeans();
 			closeBeanFactory();
 		}
 		try {
+			// 创建IOC容器
+			// 这个DefaultListableBeanFactory类型实现了基于注解的,基于xml的等等BeanFactory,是一个比较大的BeanFactory
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
 			beanFactory.setSerializationId(getId());
+			// 这里边完成两个设置,分别是:
+			//     1. allowBeanDefinitionOverriding
+			//     2. allowCircularReferences 允许循环引用
 			customizeBeanFactory(beanFactory);
+			// 通过这个方法将Bean装载到IOC容器中
 			loadBeanDefinitions(beanFactory);
 			this.beanFactory = beanFactory;
 		}

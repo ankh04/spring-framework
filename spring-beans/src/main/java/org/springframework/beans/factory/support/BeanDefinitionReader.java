@@ -82,6 +82,10 @@ public interface BeanDefinitionReader {
 	BeanNameGenerator getBeanNameGenerator();
 
 
+	// 这个方法有三个实现,分别是
+	//    1. xmlBean的reader
+	//    2. properties的reader
+	//    3. groovyBean的reader
 	/**
 	 * Load bean definitions from the specified resource.
 	 * @param resource the resource descriptor

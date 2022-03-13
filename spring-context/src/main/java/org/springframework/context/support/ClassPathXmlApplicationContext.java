@@ -123,6 +123,7 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 		this(configLocations, refresh, null);
 	}
 
+	// 最终都会到这里进行初始化
 	/**
 	 * Create a new ClassPathXmlApplicationContext with the given parent,
 	 * loading the definitions from the given XML files.
@@ -199,6 +200,7 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 		for (int i = 0; i < paths.length; i++) {
 			this.configResources[i] = new ClassPathResource(paths[i], clazz);
 		}
+		// 这里是默认refresh()的
 		refresh();
 	}
 

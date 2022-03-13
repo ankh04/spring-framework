@@ -161,6 +161,8 @@ public abstract class BeanDefinitionReaderUtils {
 
 		// Register bean definition under primary name.
 		String beanName = definitionHolder.getBeanName();
+		// definitionHolder.getBeanDefinition()拿到了BeanDefinition,这是bean在IOC中的表现形式
+		// 等到需要的时候IOC容器会把BeanDefinition变成响应的对象
 		registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());
 
 		// Register aliases for bean name, if any.
