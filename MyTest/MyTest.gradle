@@ -1,0 +1,13 @@
+group 'host.ankh'
+version '6.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(project(":spring-context"))
+    testImplementation(project(":spring-context"))
+    testImplementation  'junit:junit:4.13'
+    implementation 'junit:junit:4.12'
+}
