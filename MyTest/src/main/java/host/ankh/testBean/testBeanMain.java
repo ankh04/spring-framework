@@ -13,7 +13,7 @@ public class testBeanMain {
 
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(configClass.class);
-		SingletonBean sBean = applicationContext.getBean(SingletonBean.class);
+		SingletonBean sBean = (SingletonBean) applicationContext.getBean("singletonBean");
 		SingletonBean sBean2 = applicationContext.getBean(SingletonBean.class);
 		System.out.println("sBean2 = " + sBean2);
 		System.out.println("sBean = " + sBean);

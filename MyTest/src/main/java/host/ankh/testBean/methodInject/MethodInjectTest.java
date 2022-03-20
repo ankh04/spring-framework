@@ -13,6 +13,9 @@ public class MethodInjectTest {
 		SingletonMethodInjectBean sBean = ac.getBean(SingletonMethodInjectBean.class);
 		SingletonMethodInjectBean sBean2 = ac.getBean(SingletonMethodInjectBean.class);
 
+//		sBean.applicationContext;
+
+
 		System.out.println("sBean和sBean是否相同:" + (sBean == sBean2));
 
 		sBean.add(1);

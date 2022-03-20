@@ -871,15 +871,20 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 		// Iterate over a copy to allow for init methods which in turn register new bean definitions.
 		// While this may not be part of the regular factory bootstrap, it does otherwise work fine.
+		// 在这里对非懒加载的bean进行初始化
 		List<String> beanNames = new ArrayList<>(this.beanDefinitionNames);
 
 		// Trigger initialization of all non-lazy singleton beans...
 		for (String beanName : beanNames) {
+			// 这里除了自己定义的bean之外,还会有spring所需要的一些bean
+			// 比如 EventListener 的bean(2个), 还比如 AnnotationProcessor 相关的bean(2个)
 			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
 			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
 				if (isFactoryBean(beanName)) {
 					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName);
 					if (bean instanceof SmartFactoryBean<?> smartFactoryBean && smartFactoryBean.isEagerInit()) {
+						// 这里的getBean就是ApplicationContext上的getBean,这里相当于程序自己调用getBean将所有的bean进行初始化并缓存到SingletonObjects上
+						// 后面用户再使用getBean时,得到的缓存里的bean
 						getBean(beanName);
 					}
 				}
